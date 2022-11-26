@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
-    const {register, formState: {errors}, handleSubmit} = useForm()
-    const {signIn} = useContext(AuthContext);
+    const { register, formState: { errors }, handleSubmit } = useForm()
+    const { signIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
 
@@ -14,21 +14,21 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/'
-    navigate(from, {replace: true})
 
     const handleLogin = data => {
         setLoginError('')
         console.log(data)
         signIn(data.email, data.password)
-        .then(res => {
-            const user = res.user;
-            console.log(user);
-            setLoginUserEmail(data.email);
-        })
-        .catch(e => {
-            console.log(e.message)
-            setLoginError(e.message)
-        })
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+                setLoginUserEmail(data.email);
+                navigate(from, { replace: true })
+            })
+            .catch(e => {
+                console.log(e.message)
+                setLoginError(e.message)
+            })
     }
 
     return (
