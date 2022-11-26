@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ProductCard = ({ product }) => {
     const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName } = product;
     return (
-        <div className="card lg:card-side shadow-xl p-6 ">
+        <div className="card lg:card-side shadow-xl p-6 border border-gray-200">
             <div className='w-5/12'>
                 <figure><img src={img} alt="Album" /></figure>
             </div>
