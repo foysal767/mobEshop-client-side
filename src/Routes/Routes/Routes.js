@@ -5,10 +5,12 @@ import Blogs from "../../Pages/Blogs/Blogs";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
-import MyBooked from "../../Pages/MyBooked/MyBooked";
+import MyBooked from "../../Pages/Dashoboard/MyBooked/MyBooked";
 import Products from "../../Pages/Products/Products";
 import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
+import MyProducts from "../../Pages/Dashoboard/MyProducts/MyProducts";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <MyBooked></MyBooked>
+            },
+            {
+                path: '/dashboard/myproducts',
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
             }
         ]
     }

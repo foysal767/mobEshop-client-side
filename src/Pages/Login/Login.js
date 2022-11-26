@@ -7,13 +7,14 @@ const Login = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
     const {signIn} = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
-    const [loginUserEmail, setLoginUserEmaial] = useState('');
+    const [loginUserEmail, setLoginUserEmail] = useState('');
 
     //token
 
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state?.form?.pathname || '/'
+    const from = location.state?.from?.pathname || '/'
+    navigate(from, {replace: true})
 
     const handleLogin = data => {
         setLoginError('')
@@ -22,7 +23,7 @@ const Login = () => {
         .then(res => {
             const user = res.user;
             console.log(user);
-            setLoginUserEmaial(data.email);
+            setLoginUserEmail(data.email);
         })
         .catch(e => {
             console.log(e.message)
