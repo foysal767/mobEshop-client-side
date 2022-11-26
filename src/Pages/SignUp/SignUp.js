@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const SignUp = () => {
@@ -8,6 +9,9 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signUpError, setSignUpError] = useState('')
     // const [createUserEmail, setCreateUserEmail] = useState('')
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location?.state?.from?.pathname || '/'
 
     const handleSignup = (data) => {
         console.log(data)
@@ -16,7 +20,7 @@ const SignUp = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user)
-                //toast
+                toast.success('User Created Successfully')
                 const userInfo = {
                     displayName: data.name
                 }
@@ -43,6 +47,7 @@ const SignUp = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data, 'save user')
+            navigate(from, {replace: true})
         })
     }
 
@@ -91,7 +96,7 @@ const SignUp = () => {
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-error'>{errors.password?.message}</p>}
                     </div>
-                    <input className='btn btn-accent w-full mt-4' value='Signup' type="submit" />
+                    <input className='btn w-full mt-4 btn-secondary' value='Signup' type="submit" />
                     {
                         signUpError && <p className='text-error text-center mt-2'>{signUpError}</p>
                     }

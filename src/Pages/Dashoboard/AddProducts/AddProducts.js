@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
+import Moment from 'react-moment';
 
 const AddProducts = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const imageHostingKey = process.env.REACT_APP_imgbb_key;
@@ -24,21 +26,64 @@ const AddProducts = () => {
         }
     })
 
-    const handleAddProduct = data =>{
-        const image = data.image[0]
-        console.log(data, image)
+
+    const dateToFormat = new Date();
+
+    const handleAddProduct = data => {
+        console.log(imageHostingKey)
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url)
+                    const product = {
+                        productName: data.productName,
+                        originalPrice: data.originalPrice,
+                        resalePrice: data.resalePrice,
+                        name: data.name,
+                        userEmail: data.email,
+                        yearsOfUse: data.yearsOfUse,
+                        status: "unsold",
+                        sellersName: data.sellersName,
+                        deliveryLocation: data.deliveryLocation,
+                        img: imgData.data.url,
+                        postTime: dateToFormat
+                    }
+                    fetch("http://localhost:5000/product", {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result)
+                            toast.success('Product Added Successfully')
+                            navigate('/dashboard/myproducts')
+                        })
+                }
+            })
+        console.log(data, image, dateToFormat)
     }
 
     const navigate = useNavigate()
 
-    if(isLoading){
+    if (isLoading) {
         return <Loading></Loading>
     }
 
     return (
-        <div>
-            <h2>This is a form</h2>
-            <form onSubmit={handleSubmit(handleAddProduct)}>
+        <div className='mb-12'>
+            <h2 className='text-3xl font-semibold my-10'>Add a Product</h2>
+            <form className='mx-auto md:mr-auto w-10/12' onSubmit={handleSubmit(handleAddProduct)}>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Product Name</span></label>
                     <input type='text'
@@ -130,8 +175,11 @@ const AddProducts = () => {
                     />
                     {errors.image && <p className='text-error'>{errors.image?.message}</p>}
                 </div>
-                <input className='btn btn-accent w-full mt-4' value='Add Doctor' type="submit" />
+                <div className='w-1/4 mr-auto'>
+                    <input className='btn btn-secondary mt-4' value='Add Product' type="submit" />
+                </div>
 
+                <Moment className='hidden' />
             </form>
         </div>
     );
