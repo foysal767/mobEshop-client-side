@@ -12,7 +12,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
 import MyProducts from "../../Pages/Dashoboard/MyProducts/MyProducts";
 import AdminRoute from "../AdminRoute/AdminRoute";
-import AllBuyers from "../../Pages/Dashoboard/MyProducts/AllBuyers/AllBuyers";
+import AllBuyers from "../../Pages/Dashoboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashoboard/AllSellers/AllSellers";
 import AddProducts from "../../Pages/Dashoboard/AddProducts/AddProducts";
 

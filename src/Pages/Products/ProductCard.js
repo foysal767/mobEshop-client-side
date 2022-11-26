@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName } = product;
+    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime } = product;
     return (
         <div className="card lg:card-side shadow-xl p-6 border border-gray-200">
             <div className='w-5/12'>
@@ -15,6 +15,10 @@ const ProductCard = ({ product }) => {
                 <p className='my-2'>Location: {deliveryLocation}</p>
                 <p>years of use: {yearsOfUse}</p>
                 <p className='my-2'>Seller Name: {sellersName}</p>
+                {
+                    postTime &&
+                    <p className='my-2'>Post Time: {postTime}</p>
+                }
                 <div className='mt-4'>
                     <Link><button className="btn btn-primary text-white">Book Now</button></Link>
                 </div>

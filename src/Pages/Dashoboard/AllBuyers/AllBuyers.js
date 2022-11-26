@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Loading from '../../../Shared/Loading/Loading';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
     const { data: allbuyers = [], isLoading } = useQuery({

@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
+
+import toast from 'react-hot-toast';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
@@ -7,7 +9,7 @@ const MyProducts = () => {
 
     const url = `http://localhost:5000/myproducts?email=${user?.email}`;
 
-    const { data: myproducts = [] } = useQuery({
+    const { data: myproducts = [], refetch } = useQuery({
         queryKey: ['myproducts', user?.email],
         queryFn: async () => {
             const res = await fetch(url)
@@ -16,6 +18,20 @@ const MyProducts = () => {
             return data;
         }
     })
+
+    const handleAdvertise = id => {
+        fetch(`http://localhost:5000/myproducts/${id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    toast.success('Producted added in Advertise')
+                    refetch();
+                }
+            })
+    }
     return (
         <div>
             <h1 className='text-3xl font-semibold my-8'>My products</h1>
@@ -54,7 +70,13 @@ const MyProducts = () => {
                                             <>
                                                 <div className='flex items-center'>
                                                     <h2 className='mr-2'>Available</h2>
-                                                    <button className='btn btn-primary text-white'>Advertise</button>
+                                                    {
+                                                        product?.advertise === 'advertise' ?
+                                                            <button className='btn btn-accent' disabled>Advertised</button>
+                                                            :
+                                                            <button onClick={() => handleAdvertise(product?._id)} className='btn btn-primary text-white'>Advertise</button>
+                                                    }
+
                                                 </div>
                                             </>
                                             :

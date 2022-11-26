@@ -27,7 +27,7 @@ const AddProducts = () => {
     })
 
 
-    const dateToFormat = new Date();
+    const date = new Date();
 
     const handleAddProduct = data => {
         console.log(imageHostingKey)
@@ -54,7 +54,7 @@ const AddProducts = () => {
                         sellersName: data.sellersName,
                         deliveryLocation: data.deliveryLocation,
                         img: imgData.data.url,
-                        postTime: dateToFormat
+                        postTime: date
                     }
                     fetch("http://localhost:5000/product", {
                         method: 'POST',
@@ -71,7 +71,7 @@ const AddProducts = () => {
                         })
                 }
             })
-        console.log(data, image, dateToFormat)
+        console.log(data, image, date)
     }
 
     const navigate = useNavigate()
@@ -179,7 +179,7 @@ const AddProducts = () => {
                     <input className='btn btn-secondary mt-4' value='Add Product' type="submit" />
                 </div>
 
-                <Moment className='hidden' />
+                <Moment format="YYYY/MM/DD" className='hidden' />
             </form>
         </div>
     );
