@@ -14,7 +14,6 @@ const Category = () => {
                 return data
             }
             catch(error){
-
             }
         }
     })

@@ -16,7 +16,6 @@ const CategoryCard = ({ productCategory }) => {
                     <p className="dark:text-gray-100">{description}</p>
                 </div>
                 <Link to={`/category/${name}`}><button onClick={handle} className="flex items-center btn-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md text-white">View Products</button></Link>
-
             </div>
         </div>
     );
