@@ -40,21 +40,33 @@ const MyProducts = () => {
                                 <td>
                                     {
                                         <div className="avatar">
-                                        <div className="w-16 rounded-xl">
-                                          <img src={product.img} alt={product.productName} />
+                                            <div className="w-16 rounded-xl">
+                                                <img src={product.img} alt={product.productName} />
+                                            </div>
                                         </div>
-                                      </div>
                                     }
                                 </td>
                                 <td>{product.originalPrice}</td>
                                 <td>{product.resalePrice}</td>
                                 <td>
                                     {
-                                        product.status &&
-                                        <button className='btn btn-primary text-white'>Sold</button>
+                                        product?.status === "unsold" ?
+                                            <button
+                                                className='btn btn-primary text-white'
+                                            >Available</button> :
+                                            <h2 className='text-white text-2xl'>Sold</h2>
                                     }
                                 </td>
-                                <td><button className='btn btn-error text-white'>Delete</button></td>
+                                <td>
+                                    <button className='btn btn-error text-white mr-4'>Delete</button>
+                                    {
+                                        product?.status !== "sold" &&
+                                        <button
+                                            className='btn btn-primary text-white'
+                                        >Slod
+                                        </button>
+                                    }
+                                </td>
                             </tr>)
                         }
                     </tbody>
