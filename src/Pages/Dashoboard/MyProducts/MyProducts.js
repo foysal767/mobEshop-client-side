@@ -51,9 +51,13 @@ const MyProducts = () => {
                                 <td>
                                     {
                                         product?.status === "unsold" ?
-                                            <button
-                                                className='btn btn-primary text-white'
-                                            >Available</button> :
+                                            <>
+                                                <div className='flex items-center'>
+                                                    <h2 className='mr-2'>Available</h2>
+                                                    <button className='btn btn-primary text-white'>Advertise</button>
+                                                </div>
+                                            </>
+                                            :
                                             <h2 className='text-white text-2xl'>Sold</h2>
                                     }
                                 </td>
