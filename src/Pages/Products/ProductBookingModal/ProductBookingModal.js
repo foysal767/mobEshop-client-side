@@ -4,7 +4,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const ProductBookingModal = ({ setProductBooking, productBooking }) => {
 
-    const { productName, resalePrice } = productBooking;
+    const { productName, resalePrice, img } = productBooking;
 
     const { user } = useContext(AuthContext);
 
@@ -23,7 +23,8 @@ const ProductBookingModal = ({ setProductBooking, productBooking }) => {
             buyerEmail,
             phone,
             meetingLocation,
-            resalePrice
+            resalePrice,
+            img
         }
         fetch('http://localhost:5000/bookings', {
             method: 'POST',
