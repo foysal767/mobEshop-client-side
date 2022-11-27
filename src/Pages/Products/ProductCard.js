@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setProductBooking }) => {
     const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime } = product;
     return (
         <div className="card lg:card-side shadow-xl p-6 border border-gray-200">
@@ -19,8 +19,11 @@ const ProductCard = ({ product }) => {
                     postTime &&
                     <p className='my-2'>Post Time: {postTime.slice(0, 10)}</p>
                 }
-                <div className='mt-4'>
-                    <Link><button className="btn btn-primary text-white">Book Now</button></Link>
+                <div className='mt-4 card-actions'>
+                    <label
+                        htmlFor="booking-modal" className="btn btn-primary text-white"
+                        onClick={() => setProductBooking(product)}
+                    >Booking Now</label>
                 </div>
             </div>
         </div>
