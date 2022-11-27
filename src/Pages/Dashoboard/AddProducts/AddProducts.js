@@ -175,11 +175,10 @@ const AddProducts = () => {
                     />
                     {errors.image && <p className='text-error'>{errors.image?.message}</p>}
                 </div>
+                <Moment format="YYYY/MM/DD" className='hidden' />
                 <div className='w-1/4 mr-auto'>
                     <input className='btn btn-secondary mt-4' value='Add Product' type="submit" />
                 </div>
-
-                <Moment format="YYYY/MM/DD" className='hidden' />
             </form>
         </div>
     );

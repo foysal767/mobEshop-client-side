@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
                 <p className='my-2'>Seller Name: {sellersName}</p>
                 {
                     postTime &&
-                    <p className='my-2'>Post Time: {postTime}</p>
+                    <p className='my-2'>Post Time: {postTime.slice(0, 10)}</p>
                 }
                 <div className='mt-4'>
                     <Link><button className="btn btn-primary text-white">Book Now</button></Link>
