@@ -8,7 +8,7 @@ const AdvertiseCard = ({add}) => {
             <img src={img} alt="" className="object-cover object-center w-full rounded-t-md h-72" />
             <div className="flex flex-col justify-between p-6 space-y-8">
                 <div className="space-y-2 text-left">
-                    <h2 className="text-3xl font-semibold tracking-wide">{productName}</h2>
+                    <h2 className="text-xl font-semibold tracking-wide">{productName}</h2>
                     <p className="dark:text-gray-100">Original Price: {originalPrice}</p>
                     <p className="dark:text-gray-100">Resale Price: {resalePrice}</p>
                     <p className="dark:text-gray-100">Years Of Use: {yearsOfUse}</p>
