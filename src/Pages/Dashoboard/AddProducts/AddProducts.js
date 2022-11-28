@@ -17,7 +17,7 @@ const AddProducts = () => {
         queryKey: ['productCategories'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/category')
+                const res = await fetch('https://mob-shop-server-foysal767.vercel.app/category')
                 const data = await res.json()
                 return data
             }
@@ -56,7 +56,7 @@ const AddProducts = () => {
                         img: imgData.data.url,
                         postTime: date
                     }
-                    fetch("http://localhost:5000/product", {
+                    fetch("https://mob-shop-server-foysal767.vercel.app/product", {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'

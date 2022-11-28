@@ -26,7 +26,7 @@ const ProductBookingModal = ({ setProductBooking, productBooking }) => {
             resalePrice,
             img
         }
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://mob-shop-server-foysal767.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': "application/json"

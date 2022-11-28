@@ -5,7 +5,7 @@ import Loading from '../../Shared/Loading/Loading';
 
 const MyBooked = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:5000/bookings?email=${user?.email}`;
+    const url = `https://mob-shop-server-foysal767.vercel.app/bookings?email=${user?.email}`;
     const {data: bookings = [], refetch, isLoading} = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
@@ -20,7 +20,7 @@ const MyBooked = () => {
     }
     return (
         <div>
-            <h1 className='text-3xl font-semibold my-8'>My products</h1>
+            <h1 className='text-3xl font-semibold my-8'>My Orders</h1>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>

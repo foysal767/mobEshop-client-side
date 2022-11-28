@@ -41,7 +41,7 @@ const router = createBrowserRouter([
                 path: '/category/:name',
                 element: <PrivateRoute><Products></Products></PrivateRoute>,
                 loader: async ({ params }) => {
-                    return fetch(`http://localhost:5000/category/${params.name}`)
+                    return fetch(`https://mob-shop-server-foysal767.vercel.app/category/${params.name}`)
                 }
             },
         ]

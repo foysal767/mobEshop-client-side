@@ -1,17 +1,39 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
-    const { data: allbuyers = [], isLoading } = useQuery({
+    const { data: allbuyers = [], isLoading, refetch } = useQuery({
         queryKey: ['allbuyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/allbuyers')
+            const res = await fetch('https://mob-shop-server-foysal767.vercel.app/allbuyers')
             const data = await res.json()
             return data
         }
     })
+
+    const handleDelete = id => {
+        const proceed = window.confirm('Are you sure, you want to delete this review')
+        if(proceed){
+            fetch(`https://mob-shop-server-foysal767.vercel.app/allbuyers/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.deletedCount > 0){
+                    toast.error('Deleted Successfully')
+                    refetch()
+                }
+            })
+        }
+    }
+
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -38,7 +60,7 @@ const AllBuyers = () => {
                                     {
                                         buyer &&
                                         <Link>
-                                            <button className='btn btn-error text-white'>Delete</button>
+                                            <button onClick={() => handleDelete(buyer._id)} className='btn btn-error text-white'>Delete</button>
                                         </Link>
                                     }
                                 </td>

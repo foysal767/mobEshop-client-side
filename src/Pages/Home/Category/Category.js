@@ -9,7 +9,7 @@ const Category = () => {
         queryKey: ['productCategories'],
         queryFn: async () => {
             try{
-                const res = await fetch('http://localhost:5000/category')
+                const res = await fetch('https://mob-shop-server-foysal767.vercel.app/category')
                 const data = await res.json()
                 return data
             }

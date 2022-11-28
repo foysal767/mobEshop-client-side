@@ -7,7 +7,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/myproducts?email=${user?.email}`;
+    const url = `https://mob-shop-server-foysal767.vercel.app/myproducts?email=${user?.email}`;
 
     const { data: myproducts = [], refetch } = useQuery({
         queryKey: ['myproducts', user?.email],
@@ -20,7 +20,7 @@ const MyProducts = () => {
     })
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/myproducts/${id}`, {
+        fetch(`https://mob-shop-server-foysal767.vercel.app/myproducts/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())

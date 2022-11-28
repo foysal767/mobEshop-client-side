@@ -9,7 +9,7 @@ const Advertise = () => {
         queryKey: ['advertise'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/advertise')
+                const res = await fetch('https://mob-shop-server-foysal767.vercel.app/advertise')
                 const data = await res.json()
                 return data
             }
@@ -24,7 +24,7 @@ const Advertise = () => {
         <>
         {advertise.length > 0}
             <div className='mb-12'>
-                <h2 className='text-3xl font-semibold mx-auto mt-6'>Products Category</h2>
+                <h2 className='text-3xl font-semibold mx-auto mt-6'>Advertise Products</h2>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto mt-6'>
                     {
                         advertise?.map(add => <AdvertiseCard

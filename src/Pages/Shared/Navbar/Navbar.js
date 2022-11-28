@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
 
     const handleLogOut = () => {
         logOut()
-        .then(() => { })
-        .catch(e => console.log(e))
+            .then(() => { })
+            .catch(e => console.log(e))
     }
     const menuItems = <React.Fragment>
         <li><Link to='/'>Home</Link></li>
@@ -35,7 +36,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-primary font-bold text-xl">mobEshop</Link>
+                <Link to='/' className="btn btn-ghost normal-case text-primary font-bold text-xl"><img className='w-6' src="https://i.pinimg.com/originals/19/6c/a5/196ca566fb772a3b736ddaf3725a0483.jpg" alt="" /> mobEshop</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
