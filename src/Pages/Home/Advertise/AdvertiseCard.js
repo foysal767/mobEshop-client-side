@@ -12,7 +12,7 @@ const AdvertiseCard = ({add}) => {
                     <p className="dark:text-gray-100">Original Price: {originalPrice}</p>
                     <p className="dark:text-gray-100">Resale Price: {resalePrice}</p>
                     <p className="dark:text-gray-100">Years Of Use: {yearsOfUse}</p>
-                    <p className="dark:text-gray-100">Post Time: {postTime.slice(0, 10)}</p>
+                    <p className="dark:text-gray-100">Post Time: {postTime?.slice(0, 10)}</p>
                 </div>
                 <Link ><button  className="flex items-center btn-primary justify-center w-full p-3 font-semibold tracking-wide rounded-md text-white">Buy Now</button></Link>
             </div>

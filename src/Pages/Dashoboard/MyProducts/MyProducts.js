@@ -3,13 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
     const url = `https://mob-shop-server-foysal767.vercel.app/myproducts?email=${user?.email}`;
 
-    const { data: myproducts = [], refetch } = useQuery({
+    const { data: myproducts = [], refetch, isLoading } = useQuery({
         queryKey: ['myproducts', user?.email],
         queryFn: async () => {
             const res = await fetch(url)
@@ -32,6 +33,31 @@ const MyProducts = () => {
                 }
             })
     }
+
+    const handleDelete = id => {
+        const proceed = window.confirm('Are you sure, you want to delete this Product?')
+        if (proceed) {
+            fetch(`http://localhost:5000/myproducts/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.error('Deleted Successfully')
+                        refetch()
+                    }
+                })
+        }
+    }
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <h1 className='text-3xl font-semibold my-8'>My products</h1>
@@ -84,13 +110,15 @@ const MyProducts = () => {
                                     }
                                 </td>
                                 <td>
-                                    <button className='btn btn-error text-white mr-4'>Delete</button>
+                                    <button onClick={() => handleDelete(product._id)} className='btn btn-error text-white mr-4'>Delete</button>
                                     {
-                                        product?.status !== "sold" &&
-                                        <button
-                                            className='btn btn-primary text-white'
-                                        >Slod
-                                        </button>
+                                        product?.status !== "sold" ?
+                                            <button
+                                                className='btn btn-primary text-white'
+                                            >Slod
+                                            </button>
+                                            :
+                                            <button className='btn btn-error' disabled>Sold</button>
                                     }
                                 </td>
                             </tr>)

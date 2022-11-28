@@ -18,7 +18,7 @@ const ProductCard = ({ product, setProductBooking }) => {
                 <p className='my-2'>Seller Name: {sellersName}</p>
                 {
                     postTime &&
-                    <p className='my-2'>Post Time: {postTime.slice(0, 10)}</p>
+                    <p className='my-2'>Post Time: {postTime?.slice(0, 10)}</p>
                 }
                 <div className='mt-4 card-actions'>
                     <label

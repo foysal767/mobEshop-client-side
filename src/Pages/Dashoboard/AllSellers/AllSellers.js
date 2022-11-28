@@ -15,7 +15,7 @@ const AllSellers = () => {
     })
 
     const handleDelete = id => {
-        const proceed = window.confirm('Are you sure, you want to delete this review')
+        const proceed = window.confirm('Are you sure, you want to delete this Seller?')
         if(proceed){
             fetch(`https://mob-shop-server-foysal767.vercel.app/allsellers/${id}`, {
                 method: 'DELETE',
