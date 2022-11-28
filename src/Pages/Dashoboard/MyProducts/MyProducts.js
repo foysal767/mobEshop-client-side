@@ -37,7 +37,7 @@ const MyProducts = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete this Product?')
         if (proceed) {
-            fetch(`http://localhost:5000/myproducts/${id}`, {
+            fetch(`https://mob-shop-server-foysal767.vercel.app/myproducts/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
