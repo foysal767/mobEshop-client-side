@@ -1,8 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
+import useVerified from '../../hooks/useVerified/useVerified';
 
 const ProductCard = ({ product, setProductBooking }) => {
+    const { user } = useContext(AuthContext)
+    console.log(user.email)
 
-    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime } = product;
+    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime, _id, userEmail } = product;
+
+    const [isVerified] = useVerified(userEmail)
+
+    // const {data: reportProduct = [], refetch, isLoading} = useQuery({
+    //     queryKey: ['reportProduct'],
+    //     queryFn: async () =>{
+    //         const res = await fetch(`http://localhost:5000/reported/${_id}`)
+    //         const data = await res.json()
+    //         console.log(data)
+    //         return data
+    //     }
+    // })
+
+
+
+    const handleReport = () => {
+        const proceed = window.confirm('Are you sure, you want to report this product?')
+        if (proceed) {
+            const reportedProducts = {
+                productName,
+                resalePrice,
+                img,
+                id: _id,
+                buyerEmail: user.email
+            }
+            fetch(`http://localhost:5000/reported`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(reportedProducts)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('reported items', data)
+                    if (data.acknowledged) {
+                        toast.success('Reported Successfully')
+                    }
+                    else {
+                        toast.error(data.message)
+                    }
+                })
+        }
+    }
 
     return (
         <div className="card lg:card-side shadow-xl p-6 border border-gray-200">
@@ -15,17 +64,24 @@ const ProductCard = ({ product, setProductBooking }) => {
                 <p>Resale Price: {resalePrice}</p>
                 <p className='my-2'>Location: {deliveryLocation}</p>
                 <p>years of use: {yearsOfUse}</p>
-                <p className='my-2'>Seller Name: {sellersName}</p>
+                <p className='my-2'>Seller Name: {sellersName} <span>
+                    {
+                        isVerified && 
+                        <p className='text-blue'>Verified</p>
+                      
+                    }
+                </span></p>
                 {
                     postTime &&
                     <p className='my-2'>Post Time: {postTime?.slice(0, 10)}</p>
                 }
-                <div className='mt-4 card-actions'>
+                <div className='mt-4 card-actions mb-4'>
                     <label
                         htmlFor="booking-modal" className="btn btn-primary text-white"
                         onClick={() => setProductBooking(product)}
                     >Booking Now</label>
                 </div>
+                <button onClick={() => handleReport(product)} className='btn btn-error text-white'>Report to Admin</button>
             </div>
         </div>
     );

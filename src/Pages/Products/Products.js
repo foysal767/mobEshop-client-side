@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 
 const Products = () => {
     const products = useLoaderData({});
-    const [productBooking, setProductBooking] = useState('')
+    const [productBooking, setProductBooking] = useState(null)
     if(Loading){
         <Loading></Loading>
     }
@@ -22,6 +22,7 @@ const Products = () => {
                 }
             </div>
             {
+                productBooking &&
                 <ProductBookingModal
                 productBooking={productBooking}
                 setProductBooking={setProductBooking}

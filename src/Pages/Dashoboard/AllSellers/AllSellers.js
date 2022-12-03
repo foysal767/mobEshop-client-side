@@ -16,22 +16,36 @@ const AllSellers = () => {
 
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete this Seller?')
-        if(proceed){
+        if (proceed) {
             fetch(`https://mob-shop-server-foysal767.vercel.app/allsellers/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
                 }
             })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        toast.error('Deleted Successfully')
+                        refetch()
+                    }
+                })
+        }
+    }
+
+    const handleVerify = id => {
+        fetch(`http://localhost:5000/allsellers/${id}`, {
+            method: 'PUT'
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if(data.deletedCount > 0){
-                    toast.error('Deleted Successfully')
-                    refetch()
+                if (data.modifiedCount > 0) {
+                    toast.success('Seller verified successfully!')
+                    refetch();
                 }
             })
-        }
     }
 
     if (isLoading) {
@@ -60,9 +74,9 @@ const AllSellers = () => {
                                 <td>
                                     {
                                         seller?.status === 'verified' ?
-                                        <button className='btn btn-accent' disabled>Verified</button>
-                                        :
-                                        <Link><button className='btn btn-secondary text-white'>Verify</button></Link>
+                                            <button className='btn btn-accent' disabled>Verified</button>
+                                            :
+                                            <Link><button onClick={() => handleVerify(seller._id)} className='btn btn-secondary text-white'>Verify</button></Link>
                                     }
                                 </td>
                                 <td>
