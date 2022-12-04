@@ -8,7 +8,7 @@ const ReportedItems = () => {
     const { data: reported = [], isLoading, refetch } = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/reported")
+            const res = await fetch("https://mob-shop-server-foysal767.vercel.app/reported")
             const data = await res.json()
             return data
         }
@@ -17,7 +17,7 @@ const ReportedItems = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete this item permenantly?')
         if(proceed){
-            fetch(`http://localhost:5000/reported/${id}`, {
+            fetch(`https://mob-shop-server-foysal767.vercel.app/reported/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
@@ -26,7 +26,7 @@ const ReportedItems = () => {
             .then(res => res.json())
             .then(data => {
                 if(data.deletedCount > 0){
-                    fetch(`http://localhost:5000/products/${id}`, {
+                    fetch(`https://mob-shop-server-foysal767.vercel.app/products/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'content-type': 'application/json'

@@ -20,7 +20,7 @@ const MyBooked = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete this product from your booking list?')
         if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`https://mob-shop-server-foysal767.vercel.app/bookings/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'

@@ -15,7 +15,7 @@ const ProductCard = ({ product, setProductBooking }) => {
     // const {data: reportProduct = [], refetch, isLoading} = useQuery({
     //     queryKey: ['reportProduct'],
     //     queryFn: async () =>{
-    //         const res = await fetch(`http://localhost:5000/reported/${_id}`)
+    //         const res = await fetch(`https://mob-shop-server-foysal767.vercel.app/reported/${_id}`)
     //         const data = await res.json()
     //         console.log(data)
     //         return data
@@ -34,7 +34,7 @@ const ProductCard = ({ product, setProductBooking }) => {
                 id: _id,
                 buyerEmail: user.email
             }
-            fetch(`http://localhost:5000/reported`, {
+            fetch(`https://mob-shop-server-foysal767.vercel.app/reported`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

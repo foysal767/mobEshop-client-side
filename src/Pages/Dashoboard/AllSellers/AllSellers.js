@@ -34,7 +34,7 @@ const AllSellers = () => {
     }
 
     const handleVerify = id => {
-        fetch(`http://localhost:5000/allsellers/${id}`, {
+        fetch(`https://mob-shop-server-foysal767.vercel.app/allsellers/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
