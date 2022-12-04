@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useVerified = (email) => {
+const useVerified = email => {
     const [isVerified, setIsVerified] = useState(false);
     const [isVerifiedLoading, setIsVerifiedLoading] = useState(true);
     useEffect(() => {

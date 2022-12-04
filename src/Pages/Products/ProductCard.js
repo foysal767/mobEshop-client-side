@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useVerified from '../../hooks/useVerified/useVerified';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid'
 
 const ProductCard = ({ product, setProductBooking }) => {
     const { user } = useContext(AuthContext)
     console.log(user.email)
 
-    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime, _id, userEmail } = product;
+    const { productName, originalPrice, resalePrice, deliveryLocation, yearsOfUse, img, sellersName, postTime, _id } = product;
 
-    const [isVerified] = useVerified(userEmail)
+    const [isVerified] = useVerified(product?.userEmail)
 
     // const {data: reportProduct = [], refetch, isLoading} = useQuery({
     //     queryKey: ['reportProduct'],
@@ -64,13 +65,12 @@ const ProductCard = ({ product, setProductBooking }) => {
                 <p>Resale Price: {resalePrice}</p>
                 <p className='my-2'>Location: {deliveryLocation}</p>
                 <p>years of use: {yearsOfUse}</p>
-                <p className='my-2'>Seller Name: {sellersName} <span>
-                    {
-                        isVerified && 
-                        <p className='text-blue'>Verified</p>
-                      
+                <p className='my-2 flex'>Seller Name: {sellersName}{
+                        isVerified &&
+                        <CheckBadgeIcon className="h-6 w-6 text-blue-500" />
+
                     }
-                </span></p>
+                </p>
                 {
                     postTime &&
                     <p className='my-2'>Post Time: {postTime?.slice(0, 10)}</p>

@@ -25,7 +25,6 @@ const AllSellers = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     if (data.deletedCount > 0) {
                         toast.error('Deleted Successfully')
                         refetch()
@@ -40,7 +39,6 @@ const AllSellers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.modifiedCount > 0) {
                     toast.success('Seller verified successfully!')
                     refetch();
