@@ -1,17 +1,22 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken/useToken';
 
 const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signUpError, setSignUpError] = useState('')
-    // const [createUserEmail, setCreateUserEmail] = useState('')
-    const location = useLocation();
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
     const navigate = useNavigate();
-    const from = location?.state?.from?.pathname || '/'
+
+    if (token) {
+        console.log(token)
+        navigate('/')
+    }
 
     const handleSignup = (data) => {
         console.log(data)
@@ -30,13 +35,13 @@ const SignUp = () => {
                     })
                     .catch(e => {
                         console.log(e)
-                        signUpError(e.message)
+                        setSignUpError(e.message)
                     })
             })
     }
 
     const saveUser = (name, email, role) => {
-        const user = {name, email, role};
+        const user = { name, email, role };
         fetch('https://mob-shop-server-foysal767.vercel.app/users', {
             method: 'POST',
             headers: {
@@ -44,11 +49,11 @@ const SignUp = () => {
             },
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data, 'save user')
-            navigate(from, {replace: true})
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data, 'save user')
+                setCreatedUserEmail(email)
+            })
     }
 
     return (

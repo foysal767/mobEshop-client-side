@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -10,7 +11,11 @@ const MyBooked = () => {
     const { data: bookings = [], refetch, isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             console.log(data)
             return data;
@@ -75,7 +80,16 @@ const MyBooked = () => {
                                         <td>{booked.originalPrice}</td>
                                         <td>{booked.resalePrice}</td>
                                         <td>
-                                            <button className='btn btn-secondary text-white'>Paid</button>
+                                            {
+                                                booked?.resalePrice && !booked?.paid &&
+                                                <Link to={`/dashboard/payment/${booked._id}`}>
+                                                    <button className='btn btn-secondary text-white'>Paid</button>
+                                                </Link>
+                                            }
+                                            {
+                                                booked?.resalePrice && booked?.paid &&
+                                                <span className='text-secondary'>Paid</span>
+                                            }
                                         </td>
                                         <td>
                                             <button onClick={() => handleDelete(booked._id)} className='btn btn-error text-white mr-4'>Delete</button>

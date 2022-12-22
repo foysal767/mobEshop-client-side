@@ -1,14 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
+    const {user} = useContext(AuthContext)
     const { data: allbuyers = [], isLoading, refetch } = useQuery({
-        queryKey: ['allbuyers'],
+        queryKey: ['allbuyers', user?.email],
         queryFn: async () => {
-            const res = await fetch('https://mob-shop-server-foysal767.vercel.app/allbuyers')
+            const res = await fetch(`https://mob-shop-server-foysal767.vercel.app/allbuyers?email=${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data
         }

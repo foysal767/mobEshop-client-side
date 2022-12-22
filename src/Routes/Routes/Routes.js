@@ -16,11 +16,14 @@ import AllBuyers from "../../Pages/Dashoboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashoboard/AllSellers/AllSellers";
 import AddProducts from "../../Pages/Dashoboard/AddProducts/AddProducts";
 import ReportedItems from "../../Pages/Dashoboard/ReportedItems/ReportedItems";
+import Payment from "../../Pages/Dashoboard/Payment/Payment";
+import DisplayErrorPage from "../../Pages/Shared/DisplayErrorPage/DisplayErrorPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement: <DisplayErrorPage></DisplayErrorPage>,
         children: [
             {
                 path: '/',
@@ -54,6 +57,7 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        errorElement: <DisplayErrorPage></DisplayErrorPage>,
         children: [
             {
                 path: '/dashboard',
@@ -78,6 +82,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/addproduct',
                 element: <SellerRoute><AddProducts></AddProducts></SellerRoute>
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                loader: ({params})=> fetch(`https://mob-shop-server-foysal767.vercel.app/bookings/${params.id}`) 
             }
         ]
     }
