@@ -85,7 +85,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                element: <Payment></Payment>,
                 loader: ({params})=> fetch(`https://mob-shop-server-foysal767.vercel.app/bookings/${params.id}`) 
             }
         ]

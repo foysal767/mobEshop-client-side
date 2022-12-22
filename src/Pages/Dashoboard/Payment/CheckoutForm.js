@@ -13,7 +13,7 @@ const CheckoutForm = ({ booking }) => {
         fetch('https://mob-shop-server-foysal767.vercel.app/create-payment-intent', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify({ resalePrice })
