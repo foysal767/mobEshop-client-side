@@ -27,7 +27,7 @@ const AllBuyers = () => {
             fetch(`https://mob-shop-server-foysal767.vercel.app/allbuyers/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
                 }
             })
             .then(res => res.json())

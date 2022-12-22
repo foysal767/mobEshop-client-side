@@ -14,6 +14,7 @@ const AllSellers = () => {
         queryFn: async () => {
             const res = await fetch(`https://mob-shop-server-foysal767.vercel.app/allsellers?email=${user?.email}`, {
                 headers: {
+                    'content-type': 'application/json',
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
             })

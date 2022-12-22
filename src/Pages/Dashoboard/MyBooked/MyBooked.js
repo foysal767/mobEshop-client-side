@@ -13,7 +13,7 @@ const MyBooked = () => {
         queryFn: async () => {
             const res = await fetch(url, {
                 headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    'content-type': 'application/json'
                 }
             })
             const data = await res.json()
@@ -28,7 +28,8 @@ const MyBooked = () => {
             fetch(`https://mob-shop-server-foysal767.vercel.app/bookings/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
             })
                 .then(res => res.json())
