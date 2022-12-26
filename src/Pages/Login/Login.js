@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -6,8 +7,9 @@ import useToken from '../../hooks/useToken/useToken';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
+    const googleProvider = new GoogleAuthProvider();
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail)
 
@@ -34,6 +36,15 @@ const Login = () => {
                 console.log(e.message)
                 setLoginError(e.message)
             })
+    }
+    const handleGoogleLogIn = () => {
+        providerLogin(googleProvider)
+        .then(res => {
+            const user = res.user;
+            console.log(user)
+            navigate(from, {replace: true})
+        })
+        .catch(err => console.error(err))
     }
 
     return (
@@ -65,7 +76,7 @@ const Login = () => {
                 </form>
                 <p className='mt-4'>New to Doctors portal? <Link className='text-secondary' to='/signup'>Create new account</Link> </p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleLogIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

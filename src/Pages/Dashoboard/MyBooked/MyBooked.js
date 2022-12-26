@@ -82,7 +82,7 @@ const MyBooked = () => {
                                         <td>{booked.resalePrice}</td>
                                         <td>
                                             {
-                                                booked?.resalePrice && !booked?.paid &&
+                                                (booked?.resalePrice && !booked?.paid) &&
                                                 <Link to={`/dashboard/payment/${booked._id}`}>
                                                     <button className='btn btn-secondary text-white'>Paid</button>
                                                 </Link>

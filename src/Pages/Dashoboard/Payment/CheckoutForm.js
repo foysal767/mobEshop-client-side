@@ -11,15 +11,16 @@ const CheckoutForm = ({ booking }) => {
     const elements = useElements();
     useEffect(() => {
         fetch('https://mob-shop-server-foysal767.vercel.app/create-payment-intent', {
+            mode: "no-cors",
             method: "POST",
             headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify({ resalePrice })
         })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret))
+            .then(res => res.json())
+            .then(data => setClientSecret(data.clientSecret))
     }, [resalePrice])
     const handleSubmit = async (event) => {
         event.preventDefault();
